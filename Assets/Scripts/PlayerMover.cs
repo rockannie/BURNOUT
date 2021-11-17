@@ -8,13 +8,14 @@ public class PlayerMover : MonoBehaviour
     public Movement controller;
     public Animator Animator;
     public bool jump = false;
+    private int jumpcount = 0;
     bool crouch = false;
     bool run = true;
     public float runSpeed = 10f;
     [SerializeField] int runSpeedMax = 10;
     private Rigidbody2D body;
     Coroutine slowDownCoroutine;
-    private bool amSlowing = false;
+    public bool amSlowing = false;
     [SerializeField] private float speedBy = 2f;
     [SerializeField] private float slowBy = 0.5f;
 
@@ -58,8 +59,14 @@ public class PlayerMover : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            jump = true;
-            Animator.SetBool("Jump", true);
+            jumpcount++;
+
+            if (jumpcount <= 1)
+            {
+                jump = true;
+                Animator.SetBool("Jump", true);
+            }
+           
 
         }
 
@@ -89,8 +96,8 @@ public class PlayerMover : MonoBehaviour
     {
         // Move our character
         controller.Move(crouch, jump);
+        jump = false;
         
-            jump = false;
             
         if (jump){
             Animator.SetBool("Jump", true);
@@ -99,6 +106,11 @@ public class PlayerMover : MonoBehaviour
         {
             Animator.SetBool("Jump", false);
            
+        }
+
+        if (controller.IsGrounded)
+        {
+            jumpcount = 0;
         }
         
        
