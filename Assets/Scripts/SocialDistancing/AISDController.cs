@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,7 +92,15 @@ public class AISDController : MonoBehaviour
 
         MovementCoroutine = StartCoroutine(keepMoving(roadPath));
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
     IEnumerator keepMoving(List<Spot> my_path)
     {
         for (int i = 0; i < my_path.Count; i++)
