@@ -12,6 +12,9 @@ public class AISDController : MonoBehaviour
     
     private Coroutine coroutinevar;
 
+    //Julien code
+    private bool hasMoved = true;
+    
     private Coroutine MovementCoroutine
     {
         get { return coroutinevar; }
@@ -84,6 +87,9 @@ public class AISDController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!hasMoved)
+            return;
+        hasMoved = false;
         roadPath = astar.CreatePath(walkableArea, GridPositionOfMatchAI, GridPositionOfRandom);
         if (roadPath == null)
         {
@@ -109,6 +115,8 @@ public class AISDController : MonoBehaviour
             Vector3 temp = walkableTilemap.GetCellCenterWorld(direction);
             transform.position = temp;
             yield return new WaitForSeconds(.3f);
+            //hasMoved = true;
         }
+        hasMoved = true;
     }
 }
