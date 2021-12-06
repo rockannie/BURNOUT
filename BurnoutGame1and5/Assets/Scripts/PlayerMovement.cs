@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
-           Player.SetBool("jump",true);
+          Player.SetBool("jump",true);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -115,12 +115,20 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+             
+        // if (jump){
+        //     Player.SetBool("jump", true);
+        // }
+        // else
+        // {
+        //     Player.SetBool("jump", false);
+        //    
+        // }
         //Player.SetBool("jump",false);
     }
     
     public void Onland()
     {
-        Debug.Log("land");
         Player.SetBool("jump",false);
     }
 }
