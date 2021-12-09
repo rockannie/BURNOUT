@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         Player.SetFloat("speed",Mathf.Abs(horizontalMove));
         if (Input.GetKeyDown(KeyCode.Space))
