@@ -23,13 +23,20 @@ public class PlayerMovement : MonoBehaviour
     private bool jump = false;
     private bool fireonoff;
     private bool crouch = false;
+
+    public static PlayerMovement instance;
     // Start is called before the first frame update
     void Start()
     {
         fireonoff = true;
         fire.Play();
     }
-//put shift for on and off the particle system
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    //put shift for on and off the particle system
 //left and right to walk
 // up and left and up and right to run
 //if the fire is off for 1 min player should die
