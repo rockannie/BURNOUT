@@ -20,6 +20,7 @@ public class RoomManager : MonoBehaviour
         }
     };
 
+    [SerializeField] private GameObject startingRoomObj;
     [SerializeField] private List<GameObject> topRooms;
     [SerializeField] private List<GameObject> bottomRooms;
     [SerializeField] private List<GameObject> rightRooms;
@@ -35,12 +36,23 @@ public class RoomManager : MonoBehaviour
     void Start()
     {
         // call drunkenWalk1, drunkenWalk2, then capRooms
+        drunkenWalk1();
     }
 
     // create half the rooms
+    /*
+     * Questions: how to detect if room is open in that random direction?
+     * Are different templates even needed?
+     * Do I only need the one 4 way room and then cap its holes?
+     */
     void drunkenWalk1()
     {
-        
+        Instantiate(startingRoomObj, new Vector3(startingRoom.x,startingRoom.y,0), startingRoomObj.transform.rotation);
+        for (int i = 0; i < maxRooms/2; i++)
+        {
+            int dir = Random.Range(1, 5);
+            
+        }
     }
 
     // create the rest from the first half of rooms
