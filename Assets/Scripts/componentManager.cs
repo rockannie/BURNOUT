@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
+using UnityEngine.UIElements;
+
 
 public class componentManager : MonoBehaviour
 {
@@ -11,14 +13,15 @@ public class componentManager : MonoBehaviour
     [SerializeField] private GameObject player;
     public int Currentenergy;
     [SerializeField] private PlayerMover manageSpeed;
+    [SerializeField] private GameObject water;
     
     // Start is called before the first frame update
     void Start()
     {
         energy.MaxHealth(100);
         StartCoroutine(runEnergy());
-       
-        
+
+
     }
 
     private void Update()

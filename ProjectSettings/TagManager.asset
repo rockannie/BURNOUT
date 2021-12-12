@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ghost
+  - EndLevel
   layers:
   - Default
   - TransparentFX

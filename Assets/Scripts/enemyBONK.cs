@@ -9,7 +9,7 @@ public class enemyBONK : MonoBehaviour
     public healthBar HealthBar;
     [SerializeField] int damage = 5;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
 
         if (other.gameObject.tag == "Ghost")

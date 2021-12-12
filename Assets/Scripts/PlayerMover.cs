@@ -74,12 +74,14 @@ public class PlayerMover : MonoBehaviour
         {
             crouch = true;
             Animator.SetBool("Crouch", true);
+            Debug.Log("am crouchin");
             
             
             
-        } else if (Input.GetKeyDown(KeyCode.UpArrow))
+        } else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             crouch = false;
+            Animator.SetBool("Crouch", false);
         }
         
 
@@ -88,8 +90,7 @@ public class PlayerMover : MonoBehaviour
         
 
     }
-
-   
+    
   
 
     void FixedUpdate ()
