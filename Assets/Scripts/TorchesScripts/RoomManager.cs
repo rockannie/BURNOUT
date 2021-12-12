@@ -28,13 +28,14 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int maxRooms;
     
     private Vector2Int startingRoom = new Vector2Int(0, 0);
-
+    private Vector2Int currPos;
     private List<Vector2Int> rooms = new List<Vector2Int>();
     
     
     // Start is called before the first frame update
     void Start()
     {
+        currPos = startingRoom;
         // call drunkenWalk1, drunkenWalk2, then capRooms
         drunkenWalk1();
     }
