@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
@@ -20,64 +22,173 @@ public class RoomManager : MonoBehaviour
         }
     };
 
-    [SerializeField] private GameObject startingRoomObj;
-    [SerializeField] private List<GameObject> topRooms;
-    [SerializeField] private List<GameObject> bottomRooms;
-    [SerializeField] private List<GameObject> rightRooms;
-    [SerializeField] private List<GameObject> leftRooms;
+    [SerializeField] private GameObject roomTemplate;
+    [SerializeField] private GameObject[] torches;
     [SerializeField] private int maxRooms;
     
     private Vector2Int startingRoom = new Vector2Int(0, 0);
     private Vector2Int currPos;
-    private List<Vector2Int> rooms = new List<Vector2Int>();
+    private List<Room> rooms = new List<Room>();
     
     
     // Start is called before the first frame update
     void Start()
     {
-        currPos = startingRoom;
-        // call drunkenWalk1, drunkenWalk2, then capRooms
+        // call drunkenWalk1, drunkenWalk2, then instantiate
         drunkenWalk1();
+        drunkenWalk2();
+        foreach (Room room in rooms)
+        {
+            InstantiateRoomWithDoors(room);
+        }
     }
 
     // create half the rooms
-    /*
-     * Questions: how to detect if room is open in that random direction?
-     * Are different templates even needed?
-     * Do I only need the one 4 way room and then cap its holes?
-     */
     void drunkenWalk1()
     {
-        Instantiate(startingRoomObj, new Vector3(startingRoom.x,startingRoom.y,0), startingRoomObj.transform.rotation);
-        for (int i = 0; i < maxRooms/2; i++)
+        Room currentRoom = new Room(startingRoom);
+        rooms.Add(currentRoom);
+        while(rooms.Count < maxRooms/2)
         {
             int dir = Random.Range(1, 5);
-            
+            Vector2Int newPos = currentRoom.Pos + directions[dir];
+            if (!hasRoom(newPos))
+            {
+                currentRoom = CreateNewRoomWithDoors(dir, currentRoom);
+            }
         }
     }
 
     // create the rest from the first half of rooms
     void drunkenWalk2()
     {
-        
+        while (rooms.Count < maxRooms)
+        {
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                Room currentRoom = rooms[i];
+                int dir = Random.Range(1, 5);
+                Vector2Int newPos = currentRoom.Pos + directions[dir];
+                if (!hasRoom(newPos))
+                {
+                    CreateNewRoomWithDoors(dir, currentRoom);
+                    if (rooms.Count == maxRooms)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
-    // Cap any holes left from openings in rooms after creation
-    void capRooms()
-    {
-        
-    }
-    
     // checking if there's an already existing room at that position
     bool hasRoom(Vector2Int pos)
     {
         foreach (var room in rooms)
         {
-            if (room == pos)
+            if (room.Pos == pos)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
+
+    Room CreateNewRoomWithDoors(int dir, Room fromRoom)
+    {
+        Room room = new Room(fromRoom.Pos + directions[dir]);
+        if (dir == 1)
+        {
+            fromRoom.hasUpDoor = true;
+            room.hasDownDoor = true;
+        }
+        else if (dir == 2)
+        {
+            fromRoom.hasDownDoor = true;
+            room.hasUpDoor = true;
+        }
+        else if (dir == 3)
+        {
+            fromRoom.hasRightDoor = true;
+            room.hasLeftDoor = true;
+        }
+        else if (dir == 4)
+        {
+            fromRoom.hasLeftDoor = true;
+            room.hasRightDoor = true;
+        }
+        rooms.Add(room);
+        return room;
+    }
+
+    Room updateDoors(Room room)
+    {
+        Room updatedRoom = room;
+        for (int i = 1; i < 5; i++)
+        {
+            if (i == 1 && hasRoom(room.Pos + directions[i]))
+            {
+                updatedRoom.hasUpDoor = true;
+            }
+
+            if (i == 2 && hasRoom(room.Pos + directions[i]))
+            {
+                updatedRoom.hasDownDoor = true;
+            }
+
+            if (i == 3 && hasRoom(room.Pos + directions[i]))
+            {
+                updatedRoom.hasRightDoor = true;
+            }
+
+            if (i == 4 && hasRoom(room.Pos + directions[i]))
+            {
+                updatedRoom.hasLeftDoor = true;
+            }
+        }
+
+        return updatedRoom;
+    }
+    
+    GameObject InstantiateRoomWithDoors(Room room)
+    {
+        GameObject instantiatedRoom = GameObject.Instantiate(roomTemplate, new Vector3(room.Pos.x, room.Pos.y, 0), quaternion.identity);
+        RoomController doors= instantiatedRoom.GetComponent<RoomController>();
+        if (room.hasUpDoor)
+        {
+            doors.UpDoor.SetActive(false);
+        }
+        if (room.hasDownDoor)
+        {
+            doors.DownDoor.SetActive(false);
+        }
+        if (room.hasRightDoor)
+        {
+            doors.RightDoor.SetActive(false);
+        }
+        if (room.hasLeftDoor)
+        {
+            doors.LeftDoor.SetActive(false);
+        }
+        return instantiatedRoom;
+    }
+}
+
+class Room
+{
+    public Room(Vector2Int pos)
+    {
+        Pos = pos;
+        hasDownDoor = false;
+        hasLeftDoor = false;
+        hasRightDoor = false;
+        hasUpDoor = false;
+    }
+    
+    public Vector2Int Pos { get; set; }
+    
+    public bool hasRightDoor { get; set; }
+    public bool hasLeftDoor { get; set; }
+    public bool hasUpDoor { get; set; }
+    public bool hasDownDoor { get; set; }
 }
