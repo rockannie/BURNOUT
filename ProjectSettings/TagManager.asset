@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnPoint
+  - Rooms
+  - FallTorch
+  - WinterTorch
+  - SpringTorch
+  - SummerTorch
   layers:
   - Default
   - TransparentFX
