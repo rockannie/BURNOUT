@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
+using UnityEngine.UIElements;
+
 
 public class componentManager : MonoBehaviour
 {
     [SerializeField] healthBar energy;
     [SerializeField] private GameObject player;
     public int Currentenergy;
+    [SerializeField] private PlayerMover manageSpeed;
+    [SerializeField] private GameObject water;
     
     // Start is called before the first frame update
     void Start()
     {
         energy.MaxHealth(100);
         StartCoroutine(runEnergy());
-       
-        
+
+
     }
 
     private void Update()
@@ -33,12 +37,22 @@ public class componentManager : MonoBehaviour
 
     IEnumerator runEnergy()
     {
-        while (energy.energy.value != 0)
+        while (energy.energy.value != 0 && manageSpeed.runSpeed > 0)
         {
-            energy.SetEnergy(-2);
+
+            if (manageSpeed.amSlowing)
+            {
+                energy.SetEnergy(5); 
+                Debug.Log("chill bro");
+            }
+
+            else
+            {
+                energy.SetEnergy(-manageSpeed.runSpeed);
+            }
             yield return new WaitForSeconds(1);
-            Debug.Log("loseEnergy");
         }
+        
         
     }
 
