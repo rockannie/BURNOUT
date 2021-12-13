@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Ghost
   - EndLevel
+  - SpawnPoint
+  - Rooms
+  - FallTorch
+  - WinterTorch
+  - SpringTorch
+  - SummerTorch
   layers:
   - Default
   - TransparentFX
