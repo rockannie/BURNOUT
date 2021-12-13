@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Lifeline : MonoBehaviour
@@ -18,9 +19,10 @@ public class Lifeline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (PlayerMovement.life == 0)
         {
-            Debug.Log("time over");
+            SceneManager.LoadScene("gameoverforgame1");
         }
     }
 
@@ -38,6 +40,7 @@ public class Lifeline : MonoBehaviour
         {
             Destroy(gameObject);
         }
+   
     }
 
     // private void OnCollisionStay2D(Collision2D other)

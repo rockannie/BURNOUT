@@ -73,15 +73,11 @@ public class PlayerMovement : MonoBehaviour
         {
             
             crouch = true;
-            Debug.Log(crouch);
-          //  Player.SetBool("crouch",true);
+           
         }
         else if(Input.GetKeyUp(KeyCode.DownArrow))
         {
-            Debug.Log("CROUCH OFF");
             crouch = false;
-            Debug.Log(crouch);
-            //Player.SetBool("crouch",false);
         }
         // if (Input.GetKeyDown(KeyCode.RightArrow))
         // {
@@ -155,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+       
              
         // if (jump){
         //     Player.SetBool("jump", true);
@@ -176,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("isCrouchin"+isCrouching);
         Player.SetBool("crouch", isCrouching);
         transform.localScale = new Vector3(transform.localScale.x, 3, transform.localScale.z);
-        transform.position = new Vector3(transform.position.x, -3, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y-0.5f, transform.position.z);
     }
 
 }

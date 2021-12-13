@@ -85,11 +85,10 @@ public class CharacterController2D : MonoBehaviour
 			{
 				if (!m_wasCrouching)
 				{
-					Debug.Log("1");
 					m_wasCrouching = true;
 					Player.SetBool("crouch", crouch);
 					transform.localScale = new Vector3(transform.localScale.x, 2.5f, transform.localScale.z);
-					transform.position = new Vector3(transform.position.x, -3.5f, transform.position.z);
+					transform.position = new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z);
 					//OnCrouchEvent.Invoke(crouch);
 					//Debug.Log(crouch);
 				}

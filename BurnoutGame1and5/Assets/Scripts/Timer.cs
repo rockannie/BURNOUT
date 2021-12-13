@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
@@ -30,7 +31,13 @@ public class Timer : MonoBehaviour
             {
                 timertext.color=Color.red;
             }
+
+            if (i == 0)
+            {
+                SceneManager.LoadScene("gameoverforgame1");
+            }
             yield return new WaitForSeconds(1f);
         }
+        
     }
 }

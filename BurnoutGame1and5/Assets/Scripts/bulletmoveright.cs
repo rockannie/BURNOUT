@@ -15,7 +15,7 @@ public class bulletmoveright : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (transform.position.x - PlayerMovement.instance.transform.position.x-10 < 0)
+        if (-transform.position.x + PlayerMovement.instance.transform.position.x+15 < 0)
         {
             //gameObject.SetActive(false);
             Destroy(gameObject);
