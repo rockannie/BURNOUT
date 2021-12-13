@@ -4,15 +4,20 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Animator Player;
+    public Slider lifeline;
     
+    public Animator Player;
+    public static float life = 10;
     public ParticleSystem fire;
     private float bound = 4f;
     // public float speed;
-    
+    public AudioSource attackmode;
+
+    public AudioSource noattackmode;
     public float count;
     public CharacterController2D controller;
 
@@ -28,8 +33,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        life = 10;
+        lifeline.value = life / 10;
         fireonoff = true;
         fire.Play();
+        noattackmode.Play();
     }
 
     private void Awake()
@@ -46,6 +54,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.x > 500)
+        {
+            //winner
+            Debug.Log("winner");
+            
+        }
         
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         Player.SetFloat("speed",Mathf.Abs(horizontalMove));
@@ -59,12 +73,14 @@ public class PlayerMovement : MonoBehaviour
         {
             
             crouch = true;
+            Debug.Log(crouch);
           //  Player.SetBool("crouch",true);
         }
         else if(Input.GetKeyUp(KeyCode.DownArrow))
         {
             Debug.Log("CROUCH OFF");
             crouch = false;
+            Debug.Log(crouch);
             //Player.SetBool("crouch",false);
         }
         // if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -84,6 +100,14 @@ public class PlayerMovement : MonoBehaviour
         //     transform.position+=Vector3.right*Time.deltaTime*10;
         // }
         //
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            CharacterController2D.instance.speed = 20;
+        }
+        else if(Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            CharacterController2D.instance.speed = 10;
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             if (fireonoff==true)
@@ -102,10 +126,11 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        if (count <= 60 && count >= 1){
+    
+        if (count <= 10 && count >= 1){
             count += Time.deltaTime;
         }
-        else if (count > 60)
+        else if (count > 10)
         {
             Debug.Log("gameover");
            // SceneManager.LoadScene("gameover");
@@ -148,6 +173,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnCrouching (bool isCrouching)
     {
-       // Player.SetBool("IsCrouching", isCrouching);
+        Debug.Log("isCrouchin"+isCrouching);
+        Player.SetBool("crouch", isCrouching);
+        transform.localScale = new Vector3(transform.localScale.x, 3, transform.localScale.z);
+        transform.position = new Vector3(transform.position.x, -3, transform.position.z);
     }
+
 }
