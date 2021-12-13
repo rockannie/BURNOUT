@@ -4,24 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ghost
-  - EndLevel
-  - SpawnPoint
-  - Rooms
-  - FallTorch
-  - WinterTorch
-  - SpringTorch
-  - SummerTorch
+  - Ground
+  - danger
+  - bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
   - Player
-  - 
-  - 
+  - obstacle
+  - danger
   - 
   - 
   - 
@@ -48,7 +43,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 1579865733
     locked: 0
