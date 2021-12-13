@@ -34,13 +34,14 @@ public class RoomManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // call drunkenWalk1, drunkenWalk2, then instantiate
+        // call drunkenWalk1, drunkenWalk2, then instantiate, then place torches
         drunkenWalk1();
         drunkenWalk2();
         foreach (Room room in rooms)
         {
             InstantiateRoomWithDoors(room);
         }
+        placeTorches();
     }
 
     // create half the rooms
@@ -171,6 +172,19 @@ public class RoomManager : MonoBehaviour
             doors.LeftDoor.SetActive(false);
         }
         return instantiatedRoom;
+    }
+
+    void placeTorches()
+    {
+        List<Room> rooms = this.rooms;
+        foreach (GameObject torch in torches)
+        {
+            int indexNum = Random.Range(0, rooms.Count);
+            Room torchRoom = rooms[indexNum];
+            rooms.Remove(rooms[indexNum]);
+            Vector2Int pos = new Vector2Int(torchRoom.Pos.x + Random.Range(-5,6), torchRoom.Pos.y + Random.Range(-5,6));
+            Instantiate(torch, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+        }
     }
 }
 
