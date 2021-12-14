@@ -20,19 +20,11 @@ public class MiniGameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            foreach (var VARIABLE in sharedManager.orderLit)
-            {
-                Debug.Log(VARIABLE);
-            }
-            Debug.Log(checkOrder());
-        }
-
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
             extinguishTorches();
         }
     }
     
+    // Checks for end-game condition, if it's true, move on to next game/cutscene
     private bool checkOrder()
     {
         bool returnVal = true;
