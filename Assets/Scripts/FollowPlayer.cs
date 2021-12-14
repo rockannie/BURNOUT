@@ -6,7 +6,7 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] public Transform player;
-    [SerializeField] private int enemySpeed;
+    [SerializeField] private float enemySpeed;
 
     void Update()
     {
