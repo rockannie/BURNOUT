@@ -13,7 +13,7 @@ public class AISDController : MonoBehaviour
     private Coroutine coroutinevar;
 
     //Julien code
-    private bool hasMoved = true;
+    private bool newPathNeeded = true;
     
     private Coroutine MovementCoroutine
     {
@@ -87,12 +87,13 @@ public class AISDController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hasMoved)
+        if (!newPathNeeded)
             return;
-        hasMoved = false;
         roadPath = astar.CreatePath(walkableArea, GridPositionOfMatchAI, GridPositionOfRandom);
+        newPathNeeded = false;
         if (roadPath == null)
         {
+            newPathNeeded = true;
             return;
         }
 
@@ -112,11 +113,21 @@ public class AISDController : MonoBehaviour
         for (int i = 0; i < my_path.Count; i++)
         {
             direction = new Vector3Int(my_path[i].X, my_path[i].Y, 0);
-            Vector3 temp = walkableTilemap.GetCellCenterWorld(direction);
-            transform.position = temp;
-            yield return new WaitForSeconds(.3f);
-            //hasMoved = true;
+            Vector3 locationOfNextTile = walkableTilemap.GetCellCenterWorld(direction);
+            //loop moving in short little Lerps
+            while ((transform.position - locationOfNextTile).magnitude > .1f)
+            {
+                Vector3 position1 = transform.position;
+                Vector3 position2 = locationOfNextTile;
+                
+                transform.position = Vector3.Lerp(position1, position2, .5f);
+                yield return new WaitForSeconds(.3f);
+            }
+
+            //transform.position = locationOfNextTile;
+            
+            //newPathNeeded = true;
         }
-        hasMoved = true;
+        newPathNeeded = true;
     }
 }
