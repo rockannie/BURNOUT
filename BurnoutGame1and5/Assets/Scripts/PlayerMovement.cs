@@ -128,7 +128,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (count > 10)
         {
-            Debug.Log("gameover");
+            if(SceneManager.GetActiveScene().name=="MiniGame1")
+                SceneManager.LoadScene("gameoverforgame1");
+            if(SceneManager.GetActiveScene().name=="MiniGame5")
+                SceneManager.LoadScene("gameoverforgame5");
            // SceneManager.LoadScene("gameover");
         }
         

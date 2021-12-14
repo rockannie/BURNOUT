@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/MiniGame1.unity
+- path: C:/Users/jhans/RiderProjects/BURNOUTProject/BurnoutGame1and5/Assets/Scenes/MiniGame1.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
