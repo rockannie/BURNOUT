@@ -32,7 +32,7 @@ public class ghost : MonoBehaviour
             Flip();
         }
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(PlayerMovement.instance.transform.position.x, transform.position.y, transform.position.z),
-            Time.deltaTime*6);
+            Time.deltaTime*3);
     }
     private void Flip()
     {

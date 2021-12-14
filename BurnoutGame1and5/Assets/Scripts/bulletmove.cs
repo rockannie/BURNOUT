@@ -32,7 +32,7 @@ public class bulletmove : MonoBehaviour
     IEnumerator movement()
     { 
        
-            transform.position += Vector3.left * Time.deltaTime*3;
+            transform.position += Vector3.left * Time.deltaTime*10;
             yield return new WaitForSeconds(0f);
         StartCoroutine(movement());
     }

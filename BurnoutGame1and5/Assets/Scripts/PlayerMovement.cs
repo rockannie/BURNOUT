@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Slider lifeline;
     
+    public GameObject firee;
     public Animator Player;
     public static float life = 10;
     public ParticleSystem fire;
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         lifeline.value = life / 10;
         fireonoff = true;
         fire.Play();
+        if(SceneManager.GetActiveScene().name=="MiniGame1") 
+            firee.SetActive(true);
         noattackmode.Play();
     }
 
@@ -54,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x > 500)
+        if (transform.position.x > 480)
         {
             //winner
             Debug.Log("winner");
@@ -112,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
                 Player.SetBool("fire",false);
                 count = 1;
                 fireonoff = false;
+                if(SceneManager.GetActiveScene().name=="MiniGame1") 
+                    firee.SetActive(false);
             }
             else
             {
@@ -119,6 +124,8 @@ public class PlayerMovement : MonoBehaviour
                 Player.SetBool("fire",true);
                 count = 0;
                 fireonoff = true;
+                if(SceneManager.GetActiveScene().name=="MiniGame1")
+                    firee.SetActive(true);
             }
 
         }
@@ -131,22 +138,17 @@ public class PlayerMovement : MonoBehaviour
             if(SceneManager.GetActiveScene().name=="MiniGame1")
                 SceneManager.LoadScene("gameoverforgame1");
             if(SceneManager.GetActiveScene().name=="MiniGame5")
-                SceneManager.LoadScene("gameoverforgame5");
-           // SceneManager.LoadScene("gameover");
+                SceneManager.LoadScene("gameoverforgame5"); 
+            // SceneManager.LoadScene("gameover");
         }
         
-        //
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     
-        // }
         
         Vector2 f1 = Camera.main.WorldToScreenPoint(transform.position);
-        if (f1.x >= Screen.width-bound || f1.x <= bound)
-        { 
-            //Debug.Log("f"+f); 
+        if (transform.position.x>=-9 && transform.position.x<=485 &&(f1.x >= Screen.width-bound || f1.x <= bound))
+        {
             Camera.main.transform.position = new Vector3(transform.position.x+10f,Camera.main.transform.position.y,Camera.main.transform.position.z);
         }
+        
     }
     
     
@@ -154,17 +156,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
-       
-             
-        // if (jump){
-        //     Player.SetBool("jump", true);
-        // }
-        // else
-        // {
-        //     Player.SetBool("jump", false);
-        //    
-        // }
-        //Player.SetBool("jump",false);
+        
     }
     
     public void Onland()
