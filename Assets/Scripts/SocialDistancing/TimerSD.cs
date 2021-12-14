@@ -8,8 +8,14 @@ public class TimerSD : MonoBehaviour
     public float timer = 90f;
     public Text timertext;
 
+    //[SerializeField] private Image background;
+    [SerializeField] private Canvas popupController;
+
+    private UIController controllerUI;
+
     void Start()
     {
+        controllerUI = popupController.GetComponent<UIController>();
         StartCoroutine(timerGame()); 
     }
     /*void Update()
@@ -37,7 +43,10 @@ public class TimerSD : MonoBehaviour
 
             if (i == 0)
             {
-                //end game
+                //show how many match-people they lit
+                Time.timeScale = 0;
+                controllerUI.turnOnScoreboard();
+                //background.gameObject.SetActive(true);
             }
 
             yield return new WaitForSeconds(1f);
