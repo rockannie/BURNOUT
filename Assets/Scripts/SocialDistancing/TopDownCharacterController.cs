@@ -29,20 +29,32 @@ public class TopDownCharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             dir = Vector3.left;
-            movingLeft = true;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
+            anim.SetBool("isRunning", true);
+            //movingLeft = true;
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             dir = Vector3.up;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", true);
+            anim.SetBool("Running", false);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             dir = Vector3.right;
-            movingLeft = false;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
+            anim.SetBool("isRunning", true);
+            //movingLeft = false;
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             dir = Vector3.down;
+            anim.SetBool("isGoingDown", true);
+            anim.SetBool("isGoingUp", false);
+            anim.SetBool("isRunning", false);
         }
 
         dir.Normalize();
@@ -50,17 +62,16 @@ public class TopDownCharacterController : MonoBehaviour
         if (dir.x > 0 && !facingRight)
         {
             Flip();
-        }else if (dir.x < 0 && facingRight)
+        }
+        else if (dir.x < 0 && facingRight)
         {
             Flip();
         }
         
-        if (dir.magnitude != 0)
+        if (dir.magnitude == 0)
         {
-            anim.SetBool("isRunning", true);
-        }
-        else
-        {
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
             anim.SetBool("isRunning", false);
         }
 
