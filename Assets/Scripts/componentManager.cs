@@ -13,13 +13,15 @@ public class componentManager : MonoBehaviour
     [SerializeField] private GameObject player;
     public int Currentenergy;
     [SerializeField] private PlayerMover manageSpeed;
-    [SerializeField] private GameObject water;
+    [SerializeField] private int heal = 10;
+    [SerializeField] private Camera playerCam;
     
     // Start is called before the first frame update
     void Start()
     {
         energy.MaxHealth(100);
         StartCoroutine(runEnergy());
+        playerCam.orthographicSize = 3;
 
 
     }
@@ -28,11 +30,11 @@ public class componentManager : MonoBehaviour
     {
         if (energy.energy.value <= 0)
         {
-            saver();
             SceneManager.LoadScene( SceneManager.GetActiveScene().name);
-            
         }
-        
+
+        playerCam.orthographicSize = 3 + (manageSpeed.runSpeed/2);
+
     }
 
     IEnumerator runEnergy()
@@ -40,46 +42,25 @@ public class componentManager : MonoBehaviour
         while (energy.energy.value != 0 && manageSpeed.runSpeed > 0)
         {
 
-            if (manageSpeed.amSlowing)
+            if (manageSpeed.amSlowing || manageSpeed.crouch)
             {
-                energy.SetEnergy(5); 
-                Debug.Log("chill bro");
+                energy.SetEnergy(heal);
             }
 
             else
             {
-                energy.SetEnergy(-manageSpeed.runSpeed);
+                energy.SetEnergy((manageSpeed.runSpeed)*-0.3f);
             }
             yield return new WaitForSeconds(1);
         }
         
         
     }
-
-    public void saver()
-    {
-        //First build the player
-        var p = new saveFile()
-        {
-            Energy = energy.energy.value,
-            Position = player.transform,
-            
-        };
-
-        //Then serialize it
-        var serializedObject = JsonConvert.SerializeObject(p);
-    }
+    
 
  
 }
 
-public class saveFile
-{
 
-    public int Points { get; set; }
-    public float Energy { get; set; }
-    public Transform Position { get; set; }
-
-}
 
 

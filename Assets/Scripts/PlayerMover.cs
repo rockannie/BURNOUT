@@ -9,7 +9,7 @@ public class PlayerMover : MonoBehaviour
     public Animator Animator;
     public bool jump = false;
     private int jumpcount = 0;
-    bool crouch = false;
+    public bool crouch = false;
     bool run = true;
     public float runSpeed = 10f;
     [SerializeField] int runSpeedMax = 10;
@@ -74,7 +74,7 @@ public class PlayerMover : MonoBehaviour
         {
             crouch = true;
             Animator.SetBool("Crouch", true);
-            Debug.Log("am crouchin");
+            
             
             
             
