@@ -11,6 +11,9 @@ public class AISDController : MonoBehaviour
     public Tilemap walkableTilemap;
     
     private Coroutine coroutinevar;
+    
+    private float timeElapsed;
+    private float lerpDuration = .3f;
 
     //Julien code
     private bool newPathNeeded = true;
@@ -119,8 +122,15 @@ public class AISDController : MonoBehaviour
             {
                 Vector3 position1 = transform.position;
                 Vector3 position2 = locationOfNextTile;
-                
+
                 transform.position = Vector3.Lerp(position1, position2, .5f);
+
+                /*while (timeElapsed < lerpDuration)
+                {
+                    transform.position = Vector3.Lerp(position1, position2, timeElapsed / lerpDuration);
+                    timeElapsed += Time.deltaTime;
+                }*/
+                
                 yield return new WaitForSeconds(.3f);
             }
 
