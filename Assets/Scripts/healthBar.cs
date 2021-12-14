@@ -10,7 +10,7 @@ public class healthBar : MonoBehaviour
     public Gradient gradient;
     public Image fill;
 
-    public void MaxHealth(int coffee)
+    public void MaxHealth(float coffee)
     {
         energy.maxValue = coffee;
         energy.value = coffee;
@@ -18,7 +18,7 @@ public class healthBar : MonoBehaviour
         fill.color = gradient.Evaluate(1f);
     }
 
-    public void SetEnergy(int coffee)
+    public void SetEnergy(float coffee)
     {
         energy.value += coffee;
         fill.color = gradient.Evaluate(energy.normalizedValue);

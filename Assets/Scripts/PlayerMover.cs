@@ -8,17 +8,23 @@ public class PlayerMover : MonoBehaviour
     public Movement controller;
     public Animator Animator;
     public bool jump = false;
+    private int jumpcount = 0;
     bool crouch = false;
     bool run = true;
-    public int runSpeed = 10;
+    public float runSpeed = 10f;
     [SerializeField] int runSpeedMax = 10;
     private Rigidbody2D body;
+    Coroutine slowDownCoroutine;
+    public bool amSlowing = false;
+    [SerializeField] private float speedBy = 2f;
+    [SerializeField] private float slowBy = 0.5f;
 
 
 
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        StartCoroutine(speedUp());
     }
 
 
@@ -26,21 +32,41 @@ public class PlayerMover : MonoBehaviour
     void Update () {
 
         //transform.position += Vector3.right * Time.deltaTime * runSpeed;
-        if (run)
+        if (runSpeed > 0 && !amSlowing)
         {
             body.AddForce(transform.right * runSpeed);
+            
+            if (body.velocity.x > runSpeedMax)
+            {
+                 Vector3 tempVelocity= body.velocity;
+                 tempVelocity.x = runSpeedMax;
+                 body.velocity = tempVelocity;
+            }
+        }
+        
+        else if (runSpeed > 0 && amSlowing && body.velocity.x > 0)
+        {
+            body.AddForce(transform.right * -1 * runSpeed);
         }
 
         else
         {
             body.velocity = new Vector2(0,0);
         }
+        
+     
 
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            jump = true;
-            Animator.SetBool("Jump", true);
+            jumpcount++;
+
+            if (jumpcount <= 1)
+            {
+                jump = true;
+                Animator.SetBool("Jump", true);
+            }
+           
 
         }
 
@@ -48,29 +74,31 @@ public class PlayerMover : MonoBehaviour
         {
             crouch = true;
             Animator.SetBool("Crouch", true);
+            Debug.Log("am crouchin");
             
             
             
-        } else if (Input.GetKeyDown(KeyCode.UpArrow))
+        } else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             crouch = false;
+            Animator.SetBool("Crouch", false);
         }
         
-        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            StartCoroutine(slowBurn());
-        }
+
+            amSlowing = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
+
+        
 
     }
     
-    
+  
 
     void FixedUpdate ()
     {
         // Move our character
         controller.Move(crouch, jump);
+        jump = false;
         
-            jump = false;
             
         if (jump){
             Animator.SetBool("Jump", true);
@@ -80,39 +108,49 @@ public class PlayerMover : MonoBehaviour
             Animator.SetBool("Jump", false);
            
         }
-        
-        if (runSpeed < runSpeedMax)
-        {
-            runSpeed++;
 
+        if (controller.IsGrounded)
+        {
+            jumpcount = 0;
         }
+        
        
     }
 
 
     IEnumerator slowBurn()
     {
-        if (runSpeed > 0)
+        while (runSpeed > 0)
             {
                 runSpeed--;
-                //yield return new WaitForSeconds(2);
-                Debug.Log("Slow");
+                yield return new WaitForSeconds(0.5f);
             }
 
-        yield return new WaitForSeconds(2);
+        slowDownCoroutine = null;
+
+
     }
 
     IEnumerator speedUp()
     {
-        if (runSpeed < runSpeedMax)
+        while (true)
         {
-            runSpeed++;
-            Debug.Log("Speed");
-            yield return new WaitForSeconds(2);
+            if (amSlowing && runSpeed > 0)
+            {
+                runSpeed -= slowBy * Time.deltaTime;
+                
+            }
             
-        }
+            else if (!amSlowing && runSpeed < runSpeedMax)
+            {
+                runSpeed+= speedBy * Time.deltaTime;
+                
+            }
 
-        yield return null;
+            yield return null;
+
+        }
+        
     }
 
 

@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D m_CrouchDisableCollider; // A collider that will be disabled when crouching
+	[SerializeField] private Collider2D m_CrouchEnableCollider;
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -121,13 +122,22 @@ public class Movement : MonoBehaviour
 				
 
 				// Disable one of the colliders when crouching
+				// and enable the other
 				if (m_CrouchDisableCollider != null)
+				{
 					m_CrouchDisableCollider.enabled = false;
+					m_CrouchEnableCollider.enabled = true;
+				}
+					
 			} else
 			{
 				// Enable the collider when not crouching
+				// and disable the other
 				if (m_CrouchDisableCollider != null)
+				{
 					m_CrouchDisableCollider.enabled = true;
+					m_CrouchEnableCollider.enabled = false;
+				}
 
 				if (m_wasCrouching)
 				{
