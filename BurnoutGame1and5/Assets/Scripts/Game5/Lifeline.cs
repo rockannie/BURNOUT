@@ -20,7 +20,7 @@ public class Lifeline : MonoBehaviour
     void Update()
     {
         
-        if (PlayerMovement.life == 0)
+        if (PlayerMovement.life <= 0)
         {
             if(SceneManager.GetActiveScene().name=="MiniGame1")
                 SceneManager.LoadScene("gameoverforgame1");

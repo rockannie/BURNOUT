@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16773377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 502, y: 1.6241, z: 0}
+  m_LocalPosition: {x: 494, y: 1.6241, z: 0}
   m_LocalScale: {x: 1, y: 12.528495, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -687,7 +687,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1835,7 +1835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1230862096963796, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1230862096963796, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_TagString
@@ -1847,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1393688157360954, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1497415103117672, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_Layer
@@ -1855,7 +1855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1497415103117672, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1725317912486240, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_Name
