@@ -29,32 +29,32 @@ public class TopDownCharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             anim.SetBool("isRunningSide", true);
-            anim.SetBool("isRunningUp", false);
-            anim.SetBool("isRunningDown", false);
             dir = Vector3.left;
-            movingLeft = true;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
+            //movingLeft = true;
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            anim.SetBool("isRunningUp", true);
             anim.SetBool("isRunningSide", false);
-            anim.SetBool("isRunningDown", false);
             dir = Vector3.up;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", true);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             anim.SetBool("isRunningSide", true);
-            anim.SetBool("isRunningUp", false);
-            anim.SetBool("isRunningDown", false);
             dir = Vector3.right;
-            movingLeft = false;
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
+            //movingLeft = false;
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            anim.SetBool("isRunningDown", true);
-            anim.SetBool("isRunningUp", false);
             anim.SetBool("isRunningSide", false);
             dir = Vector3.down;
+            anim.SetBool("isGoingDown", true);
+            anim.SetBool("isGoingUp", false);
         }
 
         dir.Normalize();
@@ -62,16 +62,17 @@ public class TopDownCharacterController : MonoBehaviour
         if (dir.x > 0 && !facingRight)
         {
             Flip();
-        }else if (dir.x < 0 && facingRight)
+        }
+        else if (dir.x < 0 && facingRight)
         {
             Flip();
         }
         
         if (dir.magnitude == 0)
         {
+            anim.SetBool("isGoingDown", false);
+            anim.SetBool("isGoingUp", false);
             anim.SetBool("isRunningSide", false);
-            anim.SetBool("isRunningUp", false);
-            anim.SetBool("isRunningDown", false);
         }
 
         transform.position += dir * Time.deltaTime * speed;
