@@ -123,7 +123,7 @@ public class AISDController : MonoBehaviour
                 Vector3 position1 = transform.position;
                 Vector3 position2 = locationOfNextTile;
 
-                transform.position = Vector3.Lerp(position1, position2, .5f);
+                transform.position = Vector3.Lerp(position1, position2, .1f);
 
                 /*while (timeElapsed < lerpDuration)
                 {
@@ -131,7 +131,7 @@ public class AISDController : MonoBehaviour
                     timeElapsed += Time.deltaTime;
                 }*/
                 
-                yield return new WaitForSeconds(.3f);
+                yield return new WaitForSeconds(.01f);
             }
 
             //transform.position = locationOfNextTile;
