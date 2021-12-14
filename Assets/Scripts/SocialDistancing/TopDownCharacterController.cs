@@ -28,6 +28,9 @@ public class TopDownCharacterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
+            anim.SetBool("isRunningSide", true);
+            anim.SetBool("isRunningUp", false);
+            anim.SetBool("isRunningDown", false);
             dir = Vector3.left;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", false);
@@ -36,6 +39,9 @@ public class TopDownCharacterController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
+            anim.SetBool("isRunningUp", true);
+            anim.SetBool("isRunningSide", false);
+            anim.SetBool("isRunningDown", false);
             dir = Vector3.up;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", true);
@@ -43,6 +49,9 @@ public class TopDownCharacterController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
+            anim.SetBool("isRunningSide", true);
+            anim.SetBool("isRunningUp", false);
+            anim.SetBool("isRunningDown", false);
             dir = Vector3.right;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", false);
@@ -51,6 +60,9 @@ public class TopDownCharacterController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
+            anim.SetBool("isRunningDown", true);
+            anim.SetBool("isRunningUp", false);
+            anim.SetBool("isRunningSide", false);
             dir = Vector3.down;
             anim.SetBool("isGoingDown", true);
             anim.SetBool("isGoingUp", false);

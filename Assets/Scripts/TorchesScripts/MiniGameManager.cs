@@ -20,14 +20,11 @@ public class MiniGameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            foreach (var VARIABLE in sharedManager.orderLit)
-            {
-                Debug.Log(VARIABLE);
-            }
-            Debug.Log(checkOrder());
+            extinguishTorches();
         }
     }
     
+    // Checks for end-game condition, if it's true, move on to next game/cutscene
     private bool checkOrder()
     {
         bool returnVal = true;
@@ -46,5 +43,18 @@ public class MiniGameManager : MonoBehaviour
             returnVal = false;
         }
         return returnVal;
+    }
+
+    private void extinguishTorches()
+    {
+        TorchesManager springTorch = GameObject.FindGameObjectWithTag("SpringTorch").GetComponent<TorchesManager>();
+        TorchesManager summerTorch = GameObject.FindGameObjectWithTag("SummerTorch").GetComponent<TorchesManager>();
+        TorchesManager fallTorch = GameObject.FindGameObjectWithTag("FallTorch").GetComponent<TorchesManager>();
+        TorchesManager winterTorch = GameObject.FindGameObjectWithTag("WinterTorch").GetComponent<TorchesManager>();
+        
+        springTorch.extinguish();
+        summerTorch.extinguish();
+        fallTorch.extinguish();
+        winterTorch.extinguish();
     }
 }

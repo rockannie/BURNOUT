@@ -9,12 +9,21 @@ public class TorchesManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameObject flame = transform.GetChild(0).gameObject;
-            Debug.Log(flame.name);
             if (!flame.activeSelf)
             {
                 MiniGameManager.sharedManager.orderLit.Add(gameObject.tag);
                 flame.SetActive(true);
             } 
         }
+    }
+
+    public void extinguish()
+    {
+        GameObject flame = transform.GetChild(0).gameObject;
+        if (flame.activeSelf)
+        {
+            MiniGameManager.sharedManager.orderLit.Remove(gameObject.tag);
+            flame.SetActive(false);
+        } 
     }
 }
