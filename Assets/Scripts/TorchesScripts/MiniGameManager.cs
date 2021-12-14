@@ -26,6 +26,11 @@ public class MiniGameManager : MonoBehaviour
             }
             Debug.Log(checkOrder());
         }
+
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            extinguishTorches();
+        }
     }
     
     private bool checkOrder()
@@ -46,5 +51,18 @@ public class MiniGameManager : MonoBehaviour
             returnVal = false;
         }
         return returnVal;
+    }
+
+    private void extinguishTorches()
+    {
+        TorchesManager springTorch = GameObject.FindGameObjectWithTag("SpringTorch").GetComponent<TorchesManager>();
+        TorchesManager summerTorch = GameObject.FindGameObjectWithTag("SummerTorch").GetComponent<TorchesManager>();
+        TorchesManager fallTorch = GameObject.FindGameObjectWithTag("FallTorch").GetComponent<TorchesManager>();
+        TorchesManager winterTorch = GameObject.FindGameObjectWithTag("WinterTorch").GetComponent<TorchesManager>();
+        
+        springTorch.extinguish();
+        summerTorch.extinguish();
+        fallTorch.extinguish();
+        winterTorch.extinguish();
     }
 }
