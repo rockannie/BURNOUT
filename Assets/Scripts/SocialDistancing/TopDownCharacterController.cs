@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TopDownCharacterController : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class TopDownCharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == "Torches")
+        {
+            Time.timeScale = 1;
+        }
         anim = GetComponent<Animator>();
     }
 
@@ -29,36 +34,35 @@ public class TopDownCharacterController : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             anim.SetBool("isRunningSide", true);
-            dir = Vector3.left;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", false);
+            dir = Vector3.left;
             //movingLeft = true;
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             anim.SetBool("isRunningSide", false);
-            dir = Vector3.up;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", true);
+            dir = Vector3.up;
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             anim.SetBool("isRunningSide", true);
-            dir = Vector3.right;
             anim.SetBool("isGoingDown", false);
             anim.SetBool("isGoingUp", false);
+            dir = Vector3.right;
             //movingLeft = false;
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             anim.SetBool("isRunningSide", false);
-            dir = Vector3.down;
             anim.SetBool("isGoingDown", true);
             anim.SetBool("isGoingUp", false);
+            dir = Vector3.down;
         }
 
         dir.Normalize();
-
         if (dir.x > 0 && !facingRight)
         {
             Flip();
@@ -74,7 +78,6 @@ public class TopDownCharacterController : MonoBehaviour
             anim.SetBool("isGoingUp", false);
             anim.SetBool("isRunningSide", false);
         }
-
         transform.position += dir * Time.deltaTime * speed;
     }
     

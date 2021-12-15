@@ -11,10 +11,9 @@ public class MiniGameManager : MonoBehaviour
 
     public static MiniGameManager sharedManager;
 
-    private void Awake()
+    private void Start()
     {
         sharedManager = this;
-     //   ServiceLocator.Instance.LevelManager.OnLevelHasEnded += loadnextscene;
     }
 
     // Update is called once per frame
@@ -27,7 +26,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (checkOrder())
         {
-            SceneManager.LoadScene(4);
+            StartCoroutine(waitSomeTime());
         }
     }
 
@@ -37,20 +36,24 @@ public class MiniGameManager : MonoBehaviour
     private bool checkOrder()
     {
         bool returnVal = true;
-        if (sharedManager.orderLit.Count == neededOrder.Length)
+        if (sharedManager.orderLit != null)
         {
-            for (int i = 0; i < neededOrder.Length; i++)
+            if (sharedManager.orderLit.Count == neededOrder.Length)
             {
-                if (sharedManager.orderLit[i] != neededOrder[i])
+                for (int i = 0; i < neededOrder.Length; i++)
                 {
-                    returnVal = false;
+                    if (sharedManager.orderLit[i] != neededOrder[i])
+                    {
+                        returnVal = false;
+                    }
                 }
             }
+            else
+            {
+                returnVal = false;
+            }
         }
-        else
-        {
-            returnVal = false;
-        }
+
         return returnVal;
     }
 
@@ -66,5 +69,10 @@ public class MiniGameManager : MonoBehaviour
         fallTorch.extinguish();
         winterTorch.extinguish();
     }
-    
+
+    IEnumerator waitSomeTime()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(4);
+    }
 }
