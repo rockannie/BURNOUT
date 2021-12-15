@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
+
+    [SerializeField] private GameObject instructions;
+
     public List<string> orderLit = new List<string>();
     public static string[] neededOrder = {"SpringTorch", "SummerTorch", "FallTorch", "WinterTorch"};
 
@@ -13,6 +16,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0;
         sharedManager = this;
     }
 
@@ -30,7 +34,11 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
-  
+    public void startGame()
+    {
+        instructions.SetActive(false);
+        Time.timeScale = 1;
+    }
     
     // Checks for end-game condition, if it's true, move on to next game/cutscene
     private bool checkOrder()

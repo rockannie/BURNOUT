@@ -13,10 +13,6 @@ public class TopDownCharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Torches")
-        {
-            Time.timeScale = 1;
-        }
         anim = GetComponent<Animator>();
     }
 
