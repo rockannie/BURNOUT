@@ -16,7 +16,6 @@ public class AISDController : MonoBehaviour
     
     private Coroutine coroutinevar;
     
-    private float timeElapsed;
     private float lerpDuration = .3f;
 
     //Julien code
@@ -126,21 +125,17 @@ public class AISDController : MonoBehaviour
         {
             direction = new Vector3Int(my_path[i].X, my_path[i].Y, 0);
             Vector3 locationOfNextTile = walkableTilemap.GetCellCenterWorld(direction);
+            Vector3 position1 = transform.position;
+            Vector3 position2 = locationOfNextTile;
+            float timeElapsed = 0;
             //loop moving in short little Lerps
-            while ((transform.position - locationOfNextTile).magnitude > .1f)
+            while (timeElapsed < lerpDuration)
             {
-                Vector3 position1 = transform.position;
-                Vector3 position2 = locationOfNextTile;
+                transform.position = Vector3.Lerp(position1, position2, timeElapsed / lerpDuration);
+                Debug.Log(transform.name);
 
-                transform.position = Vector3.Lerp(position1, position2, .1f);
-
-                /*while (timeElapsed < lerpDuration)
-                {
-                    transform.position = Vector3.Lerp(position1, position2, timeElapsed / lerpDuration);
-                    timeElapsed += Time.deltaTime;
-                }*/
-                
-                yield return new WaitForSeconds(.01f);
+                yield return null;
+                timeElapsed += Time.deltaTime;
             }
 
             //transform.position = locationOfNextTile;
