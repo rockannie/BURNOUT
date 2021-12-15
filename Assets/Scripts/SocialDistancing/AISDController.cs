@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 public class AISDController : MonoBehaviour
 {
     
+    [SerializeField] private Canvas popupController;
+
+    private UIController controllerUI;
+    
     public Tilemap walkableTilemap;
     
     private Coroutine coroutinevar;
@@ -60,6 +64,8 @@ public class AISDController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controllerUI = popupController.GetComponent<UIController>();
+        
         //tilemap a* setup
         walkableTilemap.CompressBounds();
         bounds = walkableTilemap.cellBounds;
@@ -107,7 +113,10 @@ public class AISDController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (!gameObject.transform.GetChild(0).gameObject.activeSelf)
+                controllerUI.playerStrikes();
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            
         }
     }
 
