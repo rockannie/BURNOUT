@@ -11,7 +11,15 @@ public class End_level : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene( SceneManager.GetActiveScene().name);
+            if(SceneManager.GetActiveScene().name=="Thyme1")
+            {
+                SceneManager.LoadScene(2); 
+            }
+            
+            if (SceneManager.GetActiveScene().name == "EndScene")
+            {
+                SceneManager.LoadScene(0); 
+            }
         }
     }
 }

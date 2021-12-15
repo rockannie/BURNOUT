@@ -5,10 +5,40 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MiniGame1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Assets/Scenes/MiniGame1.unity
+    guid: e28c9264434cd38469a4c8d425856252
   - enabled: 1
-    path: Assets/Scenes/gameoverforgame1.unity
-    guid: e5d2594d83ca7494f90756d5ded59493
+    path: Assets/Scenes/Thyme1.unity
+    guid: cd8f3f2c7a84340278dc603ab050dda5
+  - enabled: 1
+    path: Assets/Scenes/SocialDistancing.unity
+    guid: 61502f5ee340192448d764bba0aa1c93
+  - enabled: 1
+    path: Assets/Scenes/Torches.unity
+    guid: 7ad0eb1d6c5171146ba9745ada370483
+  - enabled: 1
+    path: Assets/Assets/Scenes/MiniGame5.unity
+    guid: 83b1e55dd907cd34d9a0e9657a04252c
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 039efd3143bbc44439db5be896bb22b5
+  - enabled: 1
+    path: Assets/Assets/Scenes/Instructions1.unity
+    guid: 982a2ad2d6bf87146b62f40b7bee7d33
+  - enabled: 1
+    path: Assets/Assets/Scenes/Instructions5.unity
+    guid: 9d4ce847ca4d4244297fdf4357d9cbc2
+  - enabled: 1
+    path: Assets/Assets/Scenes/gameoverforgame1.unity
+    guid: 3e4bcf1a5cfa4b54baa8ec48a3be15d4
+  - enabled: 1
+    path: Assets/Assets/Scenes/gameoverforgame5.unity
+    guid: 8bfd705be5fc0ad4bb0cfc5ea4da6f7e
   m_configObjects: {}

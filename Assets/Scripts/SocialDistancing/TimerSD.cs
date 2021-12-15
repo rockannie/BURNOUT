@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TimerSD : MonoBehaviour
@@ -45,7 +46,8 @@ public class TimerSD : MonoBehaviour
             {
                 //show how many match-people they lit
                 Time.timeScale = 0;
-                controllerUI.turnOnScoreboard();
+                SceneManager.LoadScene(3);
+                //controllerUI.turnOnScoreboard();
                 //background.gameObject.SetActive(true);
             }
 

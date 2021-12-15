@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class MiniGameManager : MonoBehaviour
     private void Awake()
     {
         sharedManager = this;
+     //   ServiceLocator.Instance.LevelManager.OnLevelHasEnded += loadnextscene;
     }
 
     // Update is called once per frame
@@ -22,7 +24,14 @@ public class MiniGameManager : MonoBehaviour
         {
             extinguishTorches();
         }
+
+        if (checkOrder())
+        {
+            SceneManager.LoadScene(4);
+        }
     }
+
+  
     
     // Checks for end-game condition, if it's true, move on to next game/cutscene
     private bool checkOrder()
@@ -57,4 +66,5 @@ public class MiniGameManager : MonoBehaviour
         fallTorch.extinguish();
         winterTorch.extinguish();
     }
+    
 }
